@@ -18,8 +18,14 @@ for f in glob.glob(f'{a}.*'):
     ab = f
     df = pd.read_excel(f)
     
+def strip_values(series):
+    return series.str.strip()
+
 def create_new_sheet(bd_type, extention):
     try:
+
+        df['tecnologia'] = strip_values(df['tecnologia'])
+
         if df['tecnologia'].eq(bd_type).any():
             df_filtered = df[df['tecnologia'] == bd_type]    
             df_filtered.to_excel(f'{a}_{bd_type}{extention}', index=False)
